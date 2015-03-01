@@ -10,26 +10,20 @@ import java.util.logging.Logger;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author xiandalisay
  */
 public class JFrame_IOL extends javax.swing.JFrame {
-    
-    private String file_name;
-    String file_directory;
-    private Boolean is_edited;
-    
-    
+
+    FileOptions commands;
+
     /**
      * Creates new form JFrame_IOL
      */
     public JFrame_IOL() {
         initComponents();
-        this.file_name = null;
-        this.file_directory = null;
-        this.is_edited = false;
+        this.commands = new FileOptions();
     }
 
     /**
@@ -53,7 +47,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
         consoleTextArea = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         sourceTextArea = new javax.swing.JTextArea();
-        openBtn1 = new javax.swing.JButton();
+        openBtn = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -112,10 +106,10 @@ public class JFrame_IOL extends javax.swing.JFrame {
         sourceTextArea.setRows(5);
         jScrollPane2.setViewportView(sourceTextArea);
 
-        openBtn1.setText("Open");
-        openBtn1.addActionListener(new java.awt.event.ActionListener() {
+        openBtn.setText("Open");
+        openBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openBtn1ActionPerformed(evt);
+                openBtnActionPerformed(evt);
             }
         });
 
@@ -138,7 +132,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(newBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(openBtn1)
+                        .addComponent(openBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(saveBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -162,7 +156,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
                     .addComponent(newBtn)
                     .addComponent(compileBtn)
                     .addComponent(runBtn)
-                    .addComponent(openBtn1))
+                    .addComponent(openBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -179,29 +173,12 @@ public class JFrame_IOL extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //SaveFile sf = new SaveFile();
-    
-    
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        FileWriter fwrite;
-        OpenFileAction of = new OpenFileAction();
-        try {
-            fwrite = new FileWriter("output.out");
-            BufferedWriter bwrite = new BufferedWriter(fwrite);
-            bwrite.write(sourceTextArea.getText());
-            bwrite.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(JFrame_IOL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-            
-        
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        //NewFile nf = new NewFile();
-        //nf.newFile();
+        
     }//GEN-LAST:event_newBtnActionPerformed
 
     private void compileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compileBtnActionPerformed
@@ -212,22 +189,19 @@ public class JFrame_IOL extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_quitBtnActionPerformed
 
-    private void openBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBtn1ActionPerformed
+    private void openBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBtnActionPerformed
 
         // TODO add your handling code here:
-        OpenFileAction ofa = new OpenFileAction();
         try {
-            StringBuilder ab = new StringBuilder();
-            consoleTextArea.setText(ofa.openFile().toString());
-            sourceTextArea.setText(ofa.sb.toString());
+            consoleTextArea.setText(commands.openFile().toString());
+            sourceTextArea.setText(commands.getSourceCode());
         } catch (Exception ex) {
             Logger.getLogger(JFrame_IOL.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_openBtn1ActionPerformed
+    }//GEN-LAST:event_openBtnActionPerformed
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
         // TODO add your handling code here:
-        this.is_edited = false;
     }//GEN-LAST:event_formKeyTyped
 
     /**
@@ -273,7 +247,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextArea lexemesTextArea;
     private javax.swing.JButton newBtn;
-    private javax.swing.JButton openBtn1;
+    private javax.swing.JButton openBtn;
     private javax.swing.JButton quitBtn;
     private javax.swing.JButton runBtn;
     private javax.swing.JButton saveBtn;
