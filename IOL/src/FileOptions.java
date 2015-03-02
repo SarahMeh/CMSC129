@@ -25,7 +25,7 @@ public class FileOptions {
     private String file_directory;
     private String absolute_path;
     private ArrayList source;
-
+    
     private StringBuilder message;
     private final JFileChooser fileChooser;
     private final FileNameExtensionFilter IOL_filter;
@@ -61,7 +61,7 @@ public class FileOptions {
 
                 //read text from file
                 try ( //create scanner
-                        Scanner input = new Scanner(file)) {
+                    Scanner input = new Scanner(file)) {
                     this.source.clear();
                     //read text from file
                     while (input.hasNext()) {
@@ -74,7 +74,7 @@ public class FileOptions {
         } else {
             this.source.clear();
             //this.setSource("");
-            this.setMessage("File Selection was cancelled.");
+            this.setMessage( "File Selection was cancelled.");
         }
 
         return this.message;
@@ -100,20 +100,20 @@ public class FileOptions {
         }
         return code;
     }
-
+    
     public void setMessage(String message) {
         this.message.delete(0, this.message.length());
         this.message.append(message);
     }
-
+    
     /*
     public void setSource(String source) {
         this.source.delete(0, this.source.length());
         this.source.append(source);
     }
     */
-
+    
     public void saveFile() {
-
+    
     }
 }
