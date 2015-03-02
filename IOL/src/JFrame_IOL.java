@@ -178,7 +178,8 @@ public class JFrame_IOL extends javax.swing.JFrame {
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        
+        commands.newFile(sourceTextArea.getText());
+
     }//GEN-LAST:event_newBtnActionPerformed
 
     private void compileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compileBtnActionPerformed
