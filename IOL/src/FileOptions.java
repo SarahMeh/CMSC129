@@ -1,4 +1,8 @@
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -114,6 +118,49 @@ public class FileOptions {
     */
     
     public void saveFile() {
-    
+    FileWriter fwrite;
+        
+        try {
+            fwrite = new FileWriter("output.out");
+            BufferedWriter bwrite = new BufferedWriter(fwrite);
+            bwrite.write(getSourceCode());
+            bwrite.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(JFrame_IOL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+    /*
+    public void save_asBtnActionPerformed(java.awt.event.ActionEvent evt) throws IOException {      
+        
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory( new File( "./") );
+        int actionDialog;
+        actionDialog = chooser.showSaveDialog(this);
+        if ( actionDialog == JFileChooser.APPROVE_OPTION )
+        {
+            File fileName;
+            fileName = new File( chooser.getSelectedFile( ) + ".out" );
+            if(fileName == null)
+                return;
+            if(fileName.exists())
+            {
+                actionDialog = JOptionPane.showConfirmDialog(this,
+                                   "Replace existing file?");
+                // may need to check for cancel option as well
+                if (actionDialog == JOptionPane.NO_OPTION)
+                    return;
+            }
+            // okay to write file
+            BufferedWriter outFile = new BufferedWriter( new FileWriter( fileName ) );
+            outFile.write( sourceTextArea.getText( ) ); //put in textfile
+            outFile.flush( ); // redundant, done by close()
+            outFile.close( );
+            //AttestDialog.getInstance( ).showErrorDialog(languageBundle.getString(
+                               //"LogFil eAlreadyExists"));
+    
+            }
+        
+        }
+    */
 }
