@@ -1,6 +1,8 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.Element;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,7 +28,7 @@ public class FileOptions {
     private String file_directory;
     private String absolute_path;
     private ArrayList source;
-    
+
     private StringBuilder message;
     private final JFileChooser fileChooser;
     private final FileNameExtensionFilter IOL_filter;
@@ -61,13 +64,13 @@ public class FileOptions {
 
                 //read text from file
                 try ( //create scanner
-                    Scanner input = new Scanner(file)) {
+                        Scanner input = new Scanner(file)) {
                     this.source.clear();
                     //read text from file
                     while (input.hasNext()) {
                         String line = input.nextLine();
-                        System.out.println(line+"\n");
-                        this.source.add(line+"\n");
+                        System.out.println(line + "\n");
+                        this.source.add(line + "\n");
                     }
                 }
                 this.setMessage("File named " + this.file_name + " was loaded successfully.\n");
@@ -76,14 +79,15 @@ public class FileOptions {
         } else {
             this.source.clear();
             //this.setSource("");
-            this.setMessage( "File Selection was cancelled.");
+            this.setMessage("File Selection was cancelled.");
         }
 
         return this.message;
     }
 
     public void newFile(String source) {
-        if (!this.source.toString().equals(source) && !source.equals("")) {
+        if (!source.isEmpty() && 
+                this.hasSameContents(new ArrayList<>(Arrays.asList(source.split("\n"))))  ) {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             JOptionPane.showConfirmDialog(null,
                     "Are you sure in creating a new file?\nThere is still an unsaved file.",
@@ -91,6 +95,8 @@ public class FileOptions {
 
             if (dialogButton == JOptionPane.YES_OPTION) {
                 this.saveFile();
+                this.source.clear();
+                this.setMessage("");
             }
         } 
     }
@@ -102,20 +108,24 @@ public class FileOptions {
         }
         return code;
     }
-    
+
     public void setMessage(String message) {
         this.message.delete(0, this.message.length());
         this.message.append(message);
     }
-    
-    /*
-    public void setSource(String source) {
-        this.source.delete(0, this.source.length());
-        this.source.append(source);
+
+    public Boolean hasSameContents(ArrayList anotherSource) {
+        Collection as = anotherSource;
+        return as.containsAll((Collection) this.source);
     }
-    */
-    
+
+    /*
+     public void setSource(String source) {
+     this.source.delete(0, this.source.length());
+     this.source.append(source);
+     }
+     */
     public void saveFile() {
-    
+
     }
 }

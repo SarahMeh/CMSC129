@@ -250,6 +250,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(JFrame_IOL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_openBtnActionPerformed
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
