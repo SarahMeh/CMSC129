@@ -199,7 +199,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
         if ( actionDialog == JFileChooser.APPROVE_OPTION )
         {
             File fileName;
-            fileName = new File( chooser.getSelectedFile( ) + ".out" );
+            fileName = new File( chooser.getSelectedFile( ) + "" );
             if(fileName == null)
                 return;
             if(fileName.exists())
