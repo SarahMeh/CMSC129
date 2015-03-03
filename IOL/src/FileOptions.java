@@ -130,22 +130,22 @@ public class FileOptions {
         }
     }
     
-    /*
-    public void save_asBtnActionPerformed(java.awt.event.ActionEvent evt) throws IOException {      
+    
+    public void saveFile_as() throws IOException {      
         
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory( new File( "./") );
         int actionDialog;
-        actionDialog = chooser.showSaveDialog(this);
+        actionDialog = chooser.showSaveDialog(null);
         if ( actionDialog == JFileChooser.APPROVE_OPTION )
         {
             File fileName;
-            fileName = new File( chooser.getSelectedFile( ) + ".out" );
+            fileName = new File( chooser.getSelectedFile( ) + "" );
             if(fileName == null)
                 return;
             if(fileName.exists())
             {
-                actionDialog = JOptionPane.showConfirmDialog(this,
+                actionDialog = JOptionPane.showConfirmDialog(null,
                                    "Replace existing file?");
                 // may need to check for cancel option as well
                 if (actionDialog == JOptionPane.NO_OPTION)
@@ -153,7 +153,7 @@ public class FileOptions {
             }
             // okay to write file
             BufferedWriter outFile = new BufferedWriter( new FileWriter( fileName ) );
-            outFile.write( sourceTextArea.getText( ) ); //put in textfile
+            outFile.write( getSourceCode() ); //put in textfile
             outFile.flush( ); // redundant, done by close()
             outFile.close( );
             //AttestDialog.getInstance( ).showErrorDialog(languageBundle.getString(
@@ -162,5 +162,5 @@ public class FileOptions {
             }
         
         }
-    */
+    
 }
