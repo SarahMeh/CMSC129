@@ -65,7 +65,9 @@ public class FileOptions {
                     this.source.clear();
                     //read text from file
                     while (input.hasNext()) {
-                        this.source.add(input.nextLine()+"\n");
+                        String line = input.nextLine();
+                        System.out.println(line+"\n");
+                        this.source.add(line+"\n");
                     }
                 }
                 this.setMessage("File named " + this.file_name + " was loaded successfully.\n");
@@ -96,7 +98,7 @@ public class FileOptions {
     public String getSourceCode() {
         String code = "";
         for (Object source1 : this.source) {
-            code.concat(source1.toString());
+            code += source1.toString();
         }
         return code;
     }
