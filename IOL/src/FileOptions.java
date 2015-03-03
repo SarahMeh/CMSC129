@@ -1,4 +1,8 @@
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +32,7 @@ public class FileOptions {
     private String file_directory;
     private String absolute_path;
     private ArrayList source;
-
+    
     private StringBuilder message;
     private final JFileChooser fileChooser;
     private final FileNameExtensionFilter IOL_filter;
@@ -64,7 +68,7 @@ public class FileOptions {
 
                 //read text from file
                 try ( //create scanner
-                        Scanner input = new Scanner(file)) {
+                    Scanner input = new Scanner(file)) {
                     this.source.clear();
                     //read text from file
                     while (input.hasNext()) {
@@ -79,7 +83,7 @@ public class FileOptions {
         } else {
             this.source.clear();
             //this.setSource("");
-            this.setMessage("File Selection was cancelled.");
+            this.setMessage( "File Selection was cancelled.");
         }
 
         return this.message;
@@ -108,24 +112,68 @@ public class FileOptions {
         }
         return code;
     }
-
+    
     public void setMessage(String message) {
         this.message.delete(0, this.message.length());
         this.message.append(message);
     }
-
+    
     public Boolean hasSameContents(ArrayList anotherSource) {
         Collection as = anotherSource;
         return as.containsAll((Collection) this.source);
     }
 
     /*
-     public void setSource(String source) {
-     this.source.delete(0, this.source.length());
-     this.source.append(source);
-     }
-     */
-    public void saveFile() {
-
+    public void setSource(String source) {
+        this.source.delete(0, this.source.length());
+        this.source.append(source);
     }
+    */
+    
+    public void saveFile() {
+    FileWriter fwrite;
+    
+        try {
+            fwrite = new FileWriter("output.out");
+            BufferedWriter bwrite = new BufferedWriter(fwrite);
+            bwrite.write(getSourceCode());
+            bwrite.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(JFrame_IOL.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+    
+    
+    public void saveFile_as() throws IOException {      
+        
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory( new File( "./") );
+        int actionDialog;
+        actionDialog = chooser.showSaveDialog(null);
+        if ( actionDialog == JFileChooser.APPROVE_OPTION )
+        {
+            File fileName;
+            fileName = new File( chooser.getSelectedFile( ) + "" );
+            if(fileName == null)
+                return;
+            if(fileName.exists())
+            {
+                actionDialog = JOptionPane.showConfirmDialog(null,
+                                   "Replace existing file?");
+                // may need to check for cancel option as well
+                if (actionDialog == JOptionPane.NO_OPTION)
+                    return;
+            }
+            // okay to write file
+            BufferedWriter outFile = new BufferedWriter( new FileWriter( fileName ) );
+            outFile.write( getSourceCode() ); //put in textfile
+            outFile.flush( ); // redundant, done by close()
+            outFile.close( );
+            //AttestDialog.getInstance( ).showErrorDialog(languageBundle.getString(
+                               //"LogFil eAlreadyExists"));
+    
+            }
+        
+        }
+    
 }

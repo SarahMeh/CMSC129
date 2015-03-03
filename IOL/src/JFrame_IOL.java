@@ -186,46 +186,13 @@ public class JFrame_IOL extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        FileWriter fwrite;
-        try {
-            fwrite = new FileWriter("output.out");
-            BufferedWriter bwrite = new BufferedWriter(fwrite);
-            bwrite.write(sourceTextArea.getText());
-            bwrite.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(JFrame_IOL.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        commands.saveFile();
         
     }//GEN-LAST:event_saveBtnActionPerformed
             
      private void save_asBtnActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
-                JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory( new File( "./") );
-        int actionDialog;
-        actionDialog = chooser.showSaveDialog(this);
-        if ( actionDialog == JFileChooser.APPROVE_OPTION )
-        {
-            File fileName;
-            fileName = new File( chooser.getSelectedFile( ) + ".out" );
-            if(fileName == null)
-                return;
-            if(fileName.exists())
-            {
-                actionDialog = JOptionPane.showConfirmDialog(this,
-                                   "Replace existing file?");
-                // may need to check for cancel option as well
-                if (actionDialog == JOptionPane.NO_OPTION)
-                    return;
-            }
-            // okay to write file
-            BufferedWriter outFile = new BufferedWriter( new FileWriter( fileName ) );
-            outFile.write( sourceTextArea.getText( ) ); //put in textfile
-            outFile.flush( ); // redundant, done by close()
-            outFile.close( );
-            //AttestDialog.getInstance( ).showErrorDialog(languageBundle.getString(
-                               //"LogFil eAlreadyExists"));
-        
-            }
+       commands.saveFile_as();
     }
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
@@ -250,7 +217,6 @@ public class JFrame_IOL extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(JFrame_IOL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_openBtnActionPerformed
 
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
