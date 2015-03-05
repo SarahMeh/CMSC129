@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -50,7 +51,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
         sourceTextArea = new javax.swing.JTextArea();
         openBtn1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        LexTokTable = new javax.swing.JTable();
         newBtn = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
@@ -120,7 +121,6 @@ public class JFrame_IOL extends javax.swing.JFrame {
         variablesTextArea.setBackground(new java.awt.Color(204, 255, 204));
         variablesTextArea.setColumns(20);
         variablesTextArea.setRows(5);
-        variablesTextArea.setText("var1\nvar2\nnum1\nnum2\nanswer");
         variablesTextArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Table of Variables"));
         variablesTextArea.setMaximumSize(new java.awt.Dimension(256, 192));
 
@@ -145,14 +145,11 @@ public class JFrame_IOL extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setBackground(new java.awt.Color(255, 255, 204));
-        jTable2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        LexTokTable.setBackground(new java.awt.Color(255, 255, 204));
+        LexTokTable.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        LexTokTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ADD", "Addition"},
-                {"MOD", "Modulus"},
-                {"GT?", "Greater than"},
-                {"AND?", "And"}
+
             },
             new String [] {
                 "Lexemes", "Tokens"
@@ -166,8 +163,13 @@ public class JFrame_IOL extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable2.setEnabled(false);
-        jScrollPane3.setViewportView(jTable2);
+        LexTokTable.setEnabled(false);
+        jScrollPane3.setViewportView(LexTokTable);
+        if (LexTokTable.getColumnModel().getColumnCount() > 0) {
+            LexTokTable.getColumnModel().getColumn(0).setHeaderValue("Lexemes");
+            LexTokTable.getColumnModel().getColumn(1).setResizable(false);
+            LexTokTable.getColumnModel().getColumn(1).setHeaderValue("Tokens");
+        }
 
         newBtn.setBackground(new java.awt.Color(204, 204, 255));
         newBtn.setText("New");
@@ -252,6 +254,7 @@ public class JFrame_IOL extends javax.swing.JFrame {
         comp.saveFile(filename);
         filename="lexstoks.out";
         comp.saveFile(filename);
+        
     }//GEN-LAST:event_compileBtnActionPerformed
 
     private void quitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitBtnActionPerformed
@@ -299,13 +302,13 @@ public class JFrame_IOL extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTable LexTokTable;
     private javax.swing.JButton compileBtn;
     private javax.swing.JTextArea consoleTextArea;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton newBtn;
     private javax.swing.JButton openBtn1;
@@ -314,6 +317,6 @@ public class JFrame_IOL extends javax.swing.JFrame {
     private javax.swing.JButton saveBtn;
     private javax.swing.JButton save_asBtn;
     private javax.swing.JTextArea sourceTextArea;
-    private javax.swing.JTextArea variablesTextArea;
+    public javax.swing.JTextArea variablesTextArea;
     // End of variables declaration//GEN-END:variables
 }
